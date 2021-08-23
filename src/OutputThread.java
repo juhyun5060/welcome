@@ -26,5 +26,21 @@ public class OutputThread extends Thread {
 			System.exit(0);
 		}
 	}
+	
+	public void run() {
+		while(true) {
+			try {
+				if(socket != null) {
+					String msg = "";	// input stream으로부터 입력한 데이터 가져오기
+					if((msg = bf.readLine()) != null && msg.length() > 0) {		// 무엇인가 입력했다면
+						txt.append("\n" + receiver + ": " + msg);
+					}
+					sleep(1000);
+				}
+			} catch(Exception e) {
+				
+			}
+		}
+	}
 
 }

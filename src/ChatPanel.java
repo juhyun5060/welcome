@@ -1,17 +1,30 @@
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JButton;
+import javax.swing.border.TitledBorder;
 
 public class ChatPanel extends JPanel {
-
+	
+	Socket socket = null;
+	BufferedReader bf = null;
+	DataOutputStream os = null;
+	OutputThread t = null;
+	String sender;
+	String receiver;
+	JTextArea txtMessages;
+	
 	/**
 	 * Create the panel.
 	 */
-	public ChatPanel() {
+	public ChatPanel(Socket s, String sender, String receiver) {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -31,9 +44,27 @@ public class ChatPanel extends JPanel {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		add(scrollPane_1, BorderLayout.CENTER);
 		
-		JTextArea txtMessages = new JTextArea();
+		txtMessages = new JTextArea();
 		scrollPane_1.setViewportView(txtMessages);
 
+		socket = s;
+		this.sender = sender;
+		this.receiver = receiver;
+		
+		try {
+			// Input buffer and output buffer
+			bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			os = new DataOutputStream(socket.getOutputStream());
+			t = new OutputThread(s, txtMessages, sender, receiver);
+			t.start();
+		} catch(Exception e) {
+			
+		}
+		
+	}
+	
+	public JTextArea getTxtMessages() {
+		return this.txtMessages;
 	}
 
 }
