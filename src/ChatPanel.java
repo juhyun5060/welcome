@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ChatPanel extends JPanel {
 	
@@ -39,6 +41,21 @@ public class ChatPanel extends JPanel {
 		scrollPane.setViewportView(txtMessage);
 		
 		JButton btnSend = new JButton("\uC804\uC1A1");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(txtMessage.getText().trim().length() == 0) return;
+				try {
+					os.writeBytes(txtMessage.getText());
+					os.write(13);
+					os.write(10);
+					os.flush();
+					txtMessage.append("\n" + sender + ": " + txtMessage.getText());
+					txtMessage.setText("");
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 		panel.add(btnSend);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
