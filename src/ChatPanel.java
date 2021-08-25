@@ -69,13 +69,12 @@ public class ChatPanel extends JPanel {
 		this.receiver = receiver;
 		
 		try {
-			// Input buffer and output buffer
 			bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			os = new DataOutputStream(socket.getOutputStream());
 			t = new OutputThread(s, txtMessages, sender, receiver);
 			t.start();
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}

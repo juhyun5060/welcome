@@ -27,7 +27,7 @@ public class ClientChat extends JFrame {
 	private JTextField txtServerPort;
 	
 	Socket mngSocket = null;
-	String mngIP = null;
+	String mngIP = "";
 	int mngPort = 0;
 	String staffName = "";
 	BufferedReader bf = null;
@@ -115,7 +115,7 @@ public class ClientChat extends JFrame {
 						os.flush();
 					}
 				} catch(Exception ex) {
-					
+					ex.printStackTrace();
 				}
 				
 			}

@@ -9,10 +9,10 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTabbedPane;
 
 public class ManagerChat extends JFrame implements Runnable {
 
@@ -22,6 +22,7 @@ public class ManagerChat extends JFrame implements Runnable {
 	ServerSocket srvSocket = null;
 	BufferedReader bf = null;
 	Thread t;
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -63,7 +64,7 @@ public class ManagerChat extends JFrame implements Runnable {
 		panel.add(txtServerPort);
 		txtServerPort.setColumns(10);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		this.setSize(600, 300);
@@ -87,7 +88,7 @@ public class ManagerChat extends JFrame implements Runnable {
 					int pos = s.indexOf(":");
 					String staffName = s.substring(pos+1);
 					ChatPanel p = new ChatPanel(aStaffSocket, "Manager", staffName);
-//					tabbedPane.add(staffName, p);
+					tabbedPane.add(staffName, p);
 					p.updateUI();
 				}
 				Thread.sleep(100);
