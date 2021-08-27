@@ -90,6 +90,7 @@ public class ManagerChat extends JFrame implements Runnable {
 					int pos = s.indexOf(":");
 					String staffName = s.substring(pos+1);
 					ChatPanel p = new ChatPanel(aStaffSocket, "Manager", staffName);
+					p.txtMessages.append("'" + staffName + "' 님과 연결되었습니다");
 					tabbedPane.add(staffName, p);
 					p.updateUI();
 				}
