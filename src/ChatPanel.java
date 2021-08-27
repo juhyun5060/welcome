@@ -45,7 +45,7 @@ public class ChatPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(txtMessage.getText().trim().length() == 0) return;
 				try {
-					os.writeBytes(txtMessage.getText());
+					os.write(txtMessage.getText().getBytes("EUC_KR"));
 					os.write(13);
 					os.write(10);
 					os.flush();
@@ -69,7 +69,7 @@ public class ChatPanel extends JPanel {
 		this.receiver = receiver;
 		
 		try {
-			bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			bf = new BufferedReader(new InputStreamReader(socket.getInputStream(), "EUC_KR"));
 			os = new DataOutputStream(socket.getOutputStream());
 			t = new OutputThread(s, txtMessages, sender, receiver);
 			t.start();

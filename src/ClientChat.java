@@ -54,6 +54,8 @@ public class ClientChat extends JFrame {
 	 * Create the frame.
 	 */
 	public ClientChat() {
+		setTitle("Client");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 601, 300);
 		contentPane = new JPanel();
@@ -101,12 +103,12 @@ public class ClientChat extends JFrame {
 				try {
 					mngSocket = new Socket(mngIP, mngPort);
 					if(mngSocket != null) {
-						ChatPanel p = new ChatPanel(mngSocket, staffName, "Manager");
+						ChatPanel p = new ChatPanel(mngSocket, staffName, "방장");
 						thisFrame.getContentPane().add(p);
-						p.getTxtMessages().append("Manager is running");
+						p.getTxtMessages().append("방이 열렸습니다");
 						p.updateUI();
 						
-						bf = new BufferedReader(new InputStreamReader(mngSocket.getInputStream()));
+						bf = new BufferedReader(new InputStreamReader(mngSocket.getInputStream(), "EUC_KR"));
 						os = new DataOutputStream(mngSocket.getOutputStream());
 						
 						os.writeBytes("Staff: " + staffName);

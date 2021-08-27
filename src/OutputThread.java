@@ -20,7 +20,7 @@ public class OutputThread extends Thread {
 		this.receiver = receiver;
 		
 		try {
-			bf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			bf = new BufferedReader(new InputStreamReader(socket.getInputStream(), "EUC_KR"));
 		} catch(Exception e) {
 			JOptionPane.showMessageDialog(null, "네트워크 에러");
 			System.exit(0);

@@ -44,6 +44,8 @@ public class ManagerChat extends JFrame implements Runnable {
 	 * Create the frame.
 	 */
 	public ManagerChat() {
+		setTitle("Server");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -60,7 +62,7 @@ public class ManagerChat extends JFrame implements Runnable {
 		panel.add(lblNewLabel);
 		
 		txtServerPort = new JTextField();
-		txtServerPort.setText("12340");
+		txtServerPort.setText("7777");
 		panel.add(txtServerPort);
 		txtServerPort.setColumns(10);
 		
@@ -83,7 +85,7 @@ public class ManagerChat extends JFrame implements Runnable {
 			try {
 				Socket aStaffSocket = srvSocket.accept();
 				if(aStaffSocket != null) {
-					bf = new BufferedReader(new InputStreamReader(aStaffSocket.getInputStream()));
+					bf = new BufferedReader(new InputStreamReader(aStaffSocket.getInputStream(), "EUC_KR"));
 					String s = bf.readLine();
 					int pos = s.indexOf(":");
 					String staffName = s.substring(pos+1);
